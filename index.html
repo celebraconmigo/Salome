@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#a8c6e0" />
+<meta name="color-scheme" content="only light" />
+<meta name="supported-color-schemes" content="only light" />
+<title>Mis XV Años — Salomé Valencia</title>
+<meta name="description" content="Te invito a mis XV años. Sábado 7 de noviembre de 2026, 4:00 p. m. Bradenton, Florida." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Playfair+Display:wght@500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --azul: #7ba3c9;
+  --azul-osc: #3a5f86;
+  --azul-marino: #2a4a6b;
+  --azul-txt: #3a5f86;
+  --azul-cla: #a8c6e0;
+  --crema: #eef5fb;
+  --texto: #3a5f86;
+  --gold: #b8923a;
+  --gold-deep: #8a6424;
+  --gold-bright: #e8d7a4;
+  --t-title: 1.7rem;
+  --t-title-big: 2.3rem;
+  --t-body: 1.5rem;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+html, body {
+  color-scheme: only light;
+  background-color: #eaf4fc;
+  background-image: url("assets/paper-seamless-blue.jpg");   /* blue watercolor parchment */
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: 100% auto;
+  color: var(--texto);
+  font-family: "Cormorant Garamond", serif;
+  overflow-x: hidden;
+}
+/* Light-only invitation: declares dark-mode handling so phone browsers (Samsung Internet, Chrome "force dark")
+   do not auto-invert the blue/cream/gold palette. */
+@media (prefers-color-scheme: dark) {
+  :root, html, body { color-scheme: only light; background-color: #eaf4fc; }
+  .scroll-sheet { background-color: #fffdf9; }
+}
+body.locked {
+  overflow: hidden;
+  height: 100vh;
+  background-color: #120c10;
+  background-image: none;
+}
+
+.sparkles {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  overflow: hidden;
+}
+.spark {
+  position: absolute;
+  background: var(--gold-bright);
+  border-radius: 50%;
+  animation: twinkle 3.5s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(184, 146, 58, 0.8);
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.7; }
+}
+.petal {
+  position: fixed;
+  top: -20px;
+  opacity: 0;
+  z-index: 40;
+  pointer-events: none;
+  color: #8fb3d4;
+  filter: drop-shadow(0 1px 2px rgba(60, 90, 130, 0.4));
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0% { opacity: 0; transform: translateY(-10px) rotate(0deg); }
+  10% { opacity: 0.85; }
+  90% { opacity: 0.45; }
+  100% { opacity: 0; transform: translateY(105vh) rotate(360deg); }
+}
+
+.orn-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem auto;
+}
+.orn-div .line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+.orn-div .dia {
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold-deep));
+}
+.orn-div.light .line {
+  background: linear-gradient(to right, transparent, #fff, transparent);
+}
+.orn-div.light .dia { background: #fff; }
+
+#cover {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(100vw, calc(100vh * 1472 / 800));
+  height: min(100vh, calc(100vw * 800 / 1472));
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #120c10;
+  cursor: pointer;
+  overflow: hidden;
+  transition: opacity 1s, transform 1s, visibility 0s linear 1s;
+}
+#cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+}
+#cover .cover-blur {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(18px) brightness(0.55);
+  transform: scale(1.08);
+  z-index: 0;
+}
+/* Portrait phones: fill the screen and zoom in on the wax seal + wording */
+@media (max-aspect-ratio: 1/1) {
+  #cover { width: 100vw; height: 100vh; }
+  #cover img:not(.cover-blur) {
+    width: 100%;
+    height: 96vw;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+#cover.open {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.06);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+#content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  min-height: 100vh;
+  opacity: 0;
+  background: transparent;
+  transition: opacity 1.4s 0.3s;
+}
+#content.show { opacity: 1; }
+
+.hero {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  display: block;
+  overflow: hidden;
+}
+.hero picture { display: block; width: 100%; }
+.hero img {                       /* full-bleed: edge to edge, no side borders */
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (min-width: 900px), (orientation: landscape) and (min-width: 640px) {
+  .hero img {
+    max-height: 100vh;
+    object-fit: cover;            /* on very wide windows, trim top/bottom instead of leaving side bars */
+    object-position: center center;
+  }
+}
+.scroll-cue svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+
+/* ===== Long opened scroll (elegant edition): white paper, soft steel-blue text, antique-gold accents ===== */
+.scroll {
+  --rose: #fffdf9;          /* white paper (card) */
+  --rose-edge: #bfd5ea;     /* powder-blue frame */
+  --rose-roll: #e6eef7;
+  --azul-txt: #4f7197;      /* soft steel-blue body text */
+  --azul-marino: #46688f;   /* titles */
+  --gold: #c9a24d;
+  --gold-deep: #97732b;     /* antique gold for headings / labels / icons */
+  --gold-bright: #e8d7a4;
+  --apricot: #c9a24d;
+  --apricot-deep: #97732b;
+  position: relative;
+  width: calc(100% - 1.6rem);
+  max-width: 540px;
+  margin: -2.6rem auto -2.6rem;   /* tucks under the hero above and the footer below */
+  padding: 0;
+  z-index: 1;
+}
+.hero, .cierre { position: relative; z-index: 3; }
+.scroll-roll { display: none; }
+.scroll-roll {
+  position: relative;
+  height: 30px;
+  margin: 0 -11px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, var(--rose-roll) 0%, #f7d3d7 45%, var(--rose-roll) 100%);
+  border: 2px solid var(--rose-edge);
+  box-shadow: 0 6px 14px rgba(120, 60, 50, 0.22);
+  z-index: 3;
+}
+.scroll-roll::before, .scroll-roll::after {          /* flat end caps */
+  content: "";
+  position: absolute;
+  top: 3px; bottom: 3px;
+  width: 12px;
+  border-radius: 50%;
+  background: var(--rose-edge);
+  opacity: .9;
+}
+.scroll-roll::before { left: 4px; }
+.scroll-roll::after { right: 4px; }
+.scroll-sheet {
+  position: relative;
+  margin: 0;
+  padding: 6rem 0 6rem;
+  background-color: #fffdf9;
+  background-color: var(--rose);
+  background-image: url("assets/white-paper.jpg");
+  background-size: 512px 512px;
+  box-shadow: 0 16px 34px rgba(30, 55, 95, 0.36), 0 0 0 1px rgba(255, 255, 255, 0.8);
+  z-index: 1;
+}
+.scroll-sheet::before {                               /* off-white pastel pink frame */
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 12px; right: 12px;
+  border-left: 4px solid var(--rose-edge);
+  border-right: 4px solid var(--rose-edge);
+  pointer-events: none;
+}
+.scroll-side {                                       /* faint gold line running alongside each long edge */
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1.5px;
+  background: linear-gradient(180deg, #e6cd8c 0%, #c9a24d 50%, #e6cd8c 100%);
+  opacity: .9;
+  pointer-events: none;
+}
+.scroll-side.l { left: -9px; }
+.scroll-side.r { right: -9px; }
+@media (min-width: 820px) {
+  .scroll-side.l { left: -16px; }
+  .scroll-side.r { right: -16px; }
+}
+@media (max-width: 480px) { .sec-inner { padding-left: 2.2rem; padding-right: 2.2rem; } }
+.scroll-sheet::after {                                /* soft top/bottom shade where paper leaves the rolls */
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(40,65,100,.22) 0, transparent 70px),
+    linear-gradient(0deg, rgba(40,65,100,.22) 0, transparent 70px);
+}
+.sec {
+  position: relative;
+  width: 100%;
+  padding: 1.1rem 0;
+  text-align: center;
+  z-index: 2;
+}
+.sec-inner {
+  max-width: 440px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  padding: 1rem 1.7rem;
+}
+.sec + .sec .sec-inner { border-top: 0; }
+.scroll .frase-name,
+.scroll .obs-big {
+  background: linear-gradient(180deg, #dcbc68 0%, #97732b 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.scroll .btn {
+  background: linear-gradient(135deg, #f4e4b0 0%, #d4b25e 55%, #b08a3a 100%);
+  color: #3a2a0c;
+  border: 1px solid #fffdf9;
+  box-shadow: 0 8px 18px rgba(30, 55, 95, 0.28);
+}
+.scroll .cd-box { background: #fffefb; border-color: #c9a24d; }
+.scroll .cd-label { color: #97732b; }
+.scroll .orn-div .dia { background: linear-gradient(135deg, #f1dd9f, #c9a24d); }
+.sec-title {
+  font-family: Cinzel, serif;
+  letter-spacing: 0.14em;
+  font-size: var(--t-title);
+  color: var(--azul-marino);
+  text-transform: uppercase;
+  line-height: 1.35;
+  font-weight: 600;
+}
+.sec-title .big {
+  font-size: var(--t-title-big);
+  display: block;
+  color: var(--gold-deep);
+}
+.frase-text {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: var(--t-body);
+  line-height: 1.7;
+  color: var(--azul-txt);
+  font-weight: 500;
+}
+.frase-text + .frase-text { margin-top: 0.9rem; }
+.frase-name {
+  font-family: "Great Vibes", cursive;
+  font-style: normal;
+  font-size: 2.8rem;
+  margin: 0.7rem 0;
+  line-height: 1.1;
+  background: linear-gradient(180deg, #d98a52 0%, var(--gold-deep) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.det-item {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 1.25rem auto;
+  text-align: left;
+  width: 100%;
+  max-width: 340px;
+}
+.det-ico {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: var(--gold-deep);
+}
+.det-ico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.4; }
+.det-txt .k {
+  font-family: Cinzel, serif;
+  letter-spacing: 0.08em;
+  font-size: 1.05rem;
+  color: var(--gold-deep);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.det-txt .v {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.28rem;
+  color: var(--azul-txt);
+  line-height: 1.35;
+}
+.btn {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.1rem;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #f3e2b0 0%, var(--gold) 48%, var(--gold-deep) 100%);
+  color: #3a2a10;
+  text-decoration: none;
+  font-family: Cinzel, serif;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  box-shadow: 0 8px 20px rgba(138, 100, 36, 0.32);
+  border: 1px solid rgba(255, 244, 214, 0.7);
+  transition: transform 0.2s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: scale(0.96); }
+.btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+.cd-boxes {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 1.2rem auto 0;
+}
+.cd-box {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1.5px solid var(--gold);
+  border-radius: 10px;
+  padding: 0.85rem 0.35rem;
+  min-width: 68px;
+  flex: 1;
+  max-width: 84px;
+}
+.cd-num {
+  font-family: "Playfair Display", serif;
+  font-size: 2.05rem;
+  color: var(--gold-deep);
+  line-height: 1;
+  font-weight: 500;
+}
+.cd-label {
+  font-family: Cinzel, serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-top: 0.45rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.cd-date {
+  font-family: Cinzel, serif;
+  letter-spacing: 0.3em;
+  color: var(--gold-deep);
+  font-size: 1.05rem;
+  margin-top: 1.3rem;
+  font-weight: 600;
+}
+.dress-note {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  color: var(--azul-txt);
+  line-height: 1.5;
+}
+.dress-note b {
+  color: var(--gold-deep);
+  font-size: 1.45rem;
+  letter-spacing: 0.04em;
+}
+.obs-note {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  color: var(--azul-txt);
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+.obs-big {
+  font-family: "Great Vibes", cursive;
+  font-size: 2.7rem;
+  margin: 0.2rem 0;
+  background: linear-gradient(180deg, #e4c56a 0%, var(--gold-deep) 72%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.cierre {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background-image:
+    linear-gradient(transparent 0%, transparent 40%, rgba(20, 38, 64, 0.14) 62%, rgba(10, 22, 40, 0.8) 100%),
+    url("footer.jpeg");
+  background-size: cover;
+  background-position: center center;
+  text-align: center;
+  padding-bottom: 10vh;
+}
+.cierre .te {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(3.6rem, 14vw, 4.6rem);
+  color: #f6e7b8;
+  text-shadow: 0 2px 16px rgba(42, 28, 8, 0.75);
+}
+.cierre .firma {
+  font-family: Cinzel, serif;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  color: var(--gold-bright);
+  margin-top: 0.55rem;
+  text-shadow: 0 2px 8px rgba(42, 28, 8, 0.8);
+}
+
+#musicBtn {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 80;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f3e2b0, var(--gold-deep));
+  border: 1px solid var(--gold-bright);
+  color: #3a2a10;
+  font-size: 1.25rem;
+  box-shadow: 0 6px 22px rgba(138, 100, 36, 0.4);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#musicBtn.show { display: flex; }
+#musicBtn.playing .ico { display: inline-block; animation: spin 4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .petal, .spark, .cover-hint, #musicBtn.playing .ico { animation: none; }
+  #cover, #content { transition: none; }
+}
+</style>
+</head>
+<body class="locked">
+
+<div class="sparkles" id="sparkles" aria-hidden="true"></div>
+
+<div id="cover" role="button" tabindex="0" aria-label="Toca el pergamino para abrir la invitación">
+  <img class="cover-blur" src="pergamino.png" alt="" />
+  <img src="pergamino.png" alt="" />
+</div>
+
+<div id="content">
+  <section class="hero" aria-label="Salomé Valencia, mis XV años, 7 de noviembre de 2026">
+    <h1 class="visually-hidden">Salomé Valencia — Mis XV Años</h1>
+    <picture>
+      <source media="(min-width: 900px)" srcset="portada_wide.jpg" />
+      <source media="(orientation: landscape) and (min-width: 640px)" srcset="portada_wide.jpg" />
+      <img src="portada.jpg" alt="Salomé Valencia, mis XV años, 7 de noviembre de 2026" />
+    </picture>
+  </section>
+
+  <div class="scroll">
+    <span class="scroll-side l" aria-hidden="true"></span>
+    <span class="scroll-side r" aria-hidden="true"></span>
+    <div class="scroll-roll" aria-hidden="true"></div>
+    <div class="scroll-sheet">
+  <section class="sec" id="mensaje">
+    <div class="sec-inner">
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+      <p class="frase-name">Salomé Valencia</p>
+      <p class="frase-text">Me encantaría que me acompañaras a celebrar mis quince años con una cena llena de amor, alegría y momentos inolvidables.</p>
+      <p class="frase-text">Tu compañía hará de esta noche un recuerdo que guardaré para siempre.</p>
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="detalles">
+    <div class="sec-inner">
+      <p class="sec-title">Detalles de la<br><span class="big">Celebración</span></p>
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+
+      <div class="det-item">
+        <span class="det-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg>
+        </span>
+        <span class="det-txt">
+          <div class="k">Sábado</div>
+          <div class="v">7 de noviembre de 2026</div>
+        </span>
+      </div>
+
+      <div class="det-item">
+        <span class="det-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 16 14"></polyline></svg>
+        </span>
+        <span class="det-txt">
+          <div class="k">4:00 p. m.</div>
+        </span>
+      </div>
+
+      <div class="det-item">
+        <span class="det-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+        </span>
+        <span class="det-txt">
+          <div class="k">1230 Carlton Arms Circle</div>
+          <div class="v">Apto D · Bradenton, FL 34208</div>
+        </span>
+      </div>
+
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=1230+Carlton+Arms+Circle+Apt+D+Bradenton+FL+34208" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"></path></svg>
+        Ver ubicación
+      </a>
+    </div>
+  </section>
+
+  <section class="sec" id="cuenta">
+    <div class="sec-inner">
+      <p class="sec-title">Cuenta Regresiva</p>
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+      <div class="cd-boxes">
+        <div class="cd-box"><div id="cd-d" class="cd-num">--</div><div class="cd-label">Días</div></div>
+        <div class="cd-box"><div id="cd-h" class="cd-num">--</div><div class="cd-label">Horas</div></div>
+        <div class="cd-box"><div id="cd-m" class="cd-num">--</div><div class="cd-label">Min</div></div>
+        <div class="cd-box"><div id="cd-s" class="cd-num">--</div><div class="cd-label">Seg</div></div>
+      </div>
+      <p class="cd-date">07 · 11 · 2026</p>
+    </div>
+  </section>
+
+  <section class="sec" id="vestimenta">
+    <div class="sec-inner">
+      <p class="sec-title">Código de<br><span class="big">Vestimenta</span></p>
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+      <p class="dress-note"><b>Formal / Elegante</b></p>
+    </div>
+  </section>
+
+  <section class="sec" id="sobres">
+    <div class="sec-inner">
+      <p class="obs-big">Lluvia de sobres</p>
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+      <p class="obs-note">Tu presencia es mi mejor regalo. Si deseas obsequiarme algo, lo recibiré con mucho cariño mediante una lluvia de sobres.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="rsvp">
+    <div class="sec-inner">
+      <p class="sec-title">¿Nos acompañas?</p>
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+      <p class="obs-note">Tu presencia es muy importante para mí.<br><b>Por favor confirma tu asistencia.</b></p>
+      <a class="btn" href="https://wa.me/?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20los%20XV%20a%C3%B1os%20de%20Salom%C3%A9%20Valencia%20el%207%20de%20noviembre%20de%202026." target="_blank" rel="noopener noreferrer">Confirmar Asistencia</a>
+    </div>
+  </section>
+
+  <section class="sec" id="recuerdos">
+    <div class="sec-inner">
+      <p class="sec-title">Recuerdos</p>
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+      <p class="obs-note">Guarda las fotos de la noche y compártelas conmigo. Quiero atesorar cada instante de esta celebración junto a ti.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="notas">
+    <div class="sec-inner">
+      <p class="sec-title">Notas Importantes</p>
+      <div class="orn-div" style="width:150px"><span class="line"></span><span class="dia"></span><span class="line"></span></div>
+      <div class="det-item">
+        <span class="det-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 16 14"></polyline></svg>
+        </span>
+        <span class="det-txt">
+          <div class="v">Agradecemos tu puntualidad para que no te pierdas ningún momento especial.</div>
+        </span>
+      </div>
+    </div>
+  </section>
+    </div>
+    <div class="scroll-roll" aria-hidden="true"></div>
+  </div>
+
+  <section class="cierre">
+    <div class="te">Te espero</div>
+    <div class="firma">CON AMOR, SALOMÉ VALENCIA</div>
+  </section>
+</div>
+
+<audio id="bg-music" loop preload="none">
+  <source src="assets/TiempoVals.mp3" type="audio/mpeg" />
+</audio>
+<button id="musicBtn" type="button" title="Música" aria-label="Activar o pausar la música"><span class="ico">♪</span></button>
+
+<script>
+(function () {
+  const sparks = document.getElementById("sparkles");
+  for (let i = 0; i < 55; i++) {
+    const dv = document.createElement("div");
+    dv.className = "spark";
+    const sz = Math.random() * 2 + 1;
+    dv.style.width = sz + "px";
+    dv.style.height = sz + "px";
+    dv.style.left = Math.random() * 100 + "%";
+    dv.style.top = Math.random() * 100 + "%";
+    dv.style.animationDelay = Math.random() * 3.5 + "s";
+    sparks.appendChild(dv);
+  }
+})();
+
+(function () {
+  const petals = ["❀", "✿", "❁", "✾"];
+  for (let i = 0; i < 13; i++) {
+    const e = document.createElement("div");
+    e.className = "petal";
+    e.textContent = petals[Math.floor(Math.random() * petals.length)];
+    e.style.left = Math.random() * 100 + "%";
+    e.style.animationDuration = Math.random() * 7 + 8 + "s";
+    e.style.animationDelay = Math.random() * 9 + "s";
+    e.style.fontSize = Math.random() * 9 + 12 + "px";
+    document.body.appendChild(e);
+  }
+})();
+
+const target = new Date("2026-11-07T16:00:00-05:00").getTime();
+function tick() {
+  let dd = target - Date.now();
+  if (dd < 0) dd = 0;
+  document.getElementById("cd-d").textContent = Math.floor(dd / 86400000);
+  document.getElementById("cd-h").textContent = String(Math.floor((dd % 86400000) / 3600000)).padStart(2, "0");
+  document.getElementById("cd-m").textContent = String(Math.floor((dd % 3600000) / 60000)).padStart(2, "0");
+  document.getElementById("cd-s").textContent = String(Math.floor((dd % 60000) / 1000)).padStart(2, "0");
+}
+setInterval(tick, 1000);
+tick();
+
+const music = document.getElementById("bg-music");
+const musicBtn = document.getElementById("musicBtn");
+let playing = false;
+
+function markPlaying(on) {
+  playing = on;
+  musicBtn.classList.toggle("playing", on);
+}
+
+function startMusic() {
+  const pending = music.play();
+  if (pending && pending.then) {
+    pending.then(() => markPlaying(true)).catch(() => markPlaying(false));
+  } else {
+    markPlaying(true);
+  }
+}
+
+function toggleMusic() {
+  if (playing) {
+    music.pause();
+    markPlaying(false);
+  } else {
+    startMusic();
+  }
+}
+
+function openInv() {
+  document.getElementById("cover").classList.add("open");
+  document.body.classList.remove("locked");
+  document.getElementById("content").classList.add("show");
+  musicBtn.classList.add("show");
+  startMusic();
+}
+
+const cover = document.getElementById("cover");
+cover.addEventListener("click", openInv);
+cover.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openInv();
+  }
+});
+musicBtn.addEventListener("click", (event) => {
+  event.stopPropagation();
+  toggleMusic();
+});
+</script>
+</body>
+</html>
